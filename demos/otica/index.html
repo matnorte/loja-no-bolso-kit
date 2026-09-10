@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e3a8a" />
+  <meta name="description" content="Ótica Lume — catálogo demo Loja no Bolso" />
+  <title>Ótica Lume · Catálogo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    /* Tema ótica / azul */
+    :root {
+      --bg: #eef2ff;
+      --bg-elev: #f8fafc;
+      --ink: #0f172a;
+      --ink-soft: #475569;
+      --line: #c7d2fe;
+      --accent: #1d4ed8;
+      --accent-ink: #eff6ff;
+      --chip: #e0e7ff;
+    }
+    body {
+      background:
+        radial-gradient(1100px 480px at 8% -12%, #bfdbfe 0%, transparent 55%),
+        radial-gradient(900px 400px at 100% 0%, #c7d2fe 0%, transparent 42%),
+        var(--bg);
+    }
+    .mark {
+      background: linear-gradient(145deg, #1e3a8a, #2563eb);
+      color: #eff6ff;
+    }
+    .dock-wa { background: #128C7E; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Ir ao catálogo</a>
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">Ó</div>
+      <div>
+        <p class="eyebrow">Demo · Loja no Bolso</p>
+        <h1>Ótica Lume</h1>
+      </div>
+    </div>
+    <button type="button" class="icon-btn" id="btn-info" aria-label="Sobre a loja">i</button>
+  </header>
+
+  <section class="hero" aria-label="Destaque">
+    <div class="hero-copy">
+      <p class="tag">Armações · lentes · solar · Centro</p>
+      <p class="lede">Cliente escolhe armação e pede orçamento de lentes no WhatsApp — catálogo na mão, sem depender só do Instagram.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="btn-whatsapp-geral" href="#">WhatsApp da ótica</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver catálogo</a>
+      </div>
+    </div>
+    <dl class="meta">
+      <div><dt>Horário</dt><dd>Seg–Sáb · 9h–18h</dd></div>
+      <div><dt>Endereço</dt><dd>Rua das Lentes, 88</dd></div>
+    </dl>
+  </section>
+
+  <nav class="filters" aria-label="Seções" id="filters"></nav>
+
+  <main id="catalogo" class="catalog">
+    <div class="catalog-head">
+      <h2 id="section-title">Catálogo</h2>
+      <label class="search">
+        <span class="sr-only">Buscar</span>
+        <input type="search" id="q" placeholder="Buscar armação, lente…" autocomplete="off" />
+      </label>
+    </div>
+    <div id="grid" class="grid"></div>
+    <p id="empty" class="empty" hidden>Nenhum item nessa busca.</p>
+  </main>
+
+  <footer class="foot">
+    <p><strong>Ótica Lume</strong> — catálogo demonstrativo.</p>
+    <p>Loja no Bolso · QR na vitrine + WhatsApp. Itens e preços fictícios.</p>
+  </footer>
+
+  <div class="dock" role="navigation" aria-label="Ações rápidas">
+    <a class="dock-wa" id="btn-whatsapp-dock" href="#">WhatsApp</a>
+  </div>
+
+  <dialog id="dlg-item">
+    <form method="dialog" class="dlg">
+      <div id="dlg-swatch" class="dlg-swatch" aria-hidden="true"></div>
+      <h2 id="dlg-title">Item</h2>
+      <p id="dlg-price" class="dlg-price"></p>
+      <p id="dlg-desc" class="dlg-desc"></p>
+      <div class="dlg-actions">
+        <a class="btn btn-primary" id="dlg-wa" href="#" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+        <button value="cancel" class="btn btn-ghost">Fechar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-info">
+    <form method="dialog" class="dlg">
+      <h2>Sobre esta demo</h2>
+      <p>Modelo de catálogo digital para ótica de rua: armações, lentes, solar e acessórios com botão WhatsApp. Troque nome, foto e preços na entrega real.</p>
+      <button value="ok" class="btn btn-primary">Entendi</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

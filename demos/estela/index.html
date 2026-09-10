@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2a1f2e" />
+  <meta name="description" content="Salão Estela — cardápio de serviços demo Loja no Bolso" />
+  <title>Salão Estela · Serviços</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    /* Tema salão/estética por cima do base */
+    :root {
+      --bg: #f7f2f6;
+      --bg-elev: #fffbfd;
+      --ink: #2a1f2e;
+      --ink-soft: #6b5a66;
+      --line: #eadfe6;
+      --accent: #7a3e6b;
+      --accent-ink: #fdf4fa;
+      --chip: #f0e4ec;
+    }
+    body {
+      background:
+        radial-gradient(1100px 480px at 8% -12%, #f3d9e8 0%, transparent 55%),
+        radial-gradient(900px 400px at 100% 0%, #e8e6f5 0%, transparent 42%),
+        var(--bg);
+    }
+    .mark {
+      background: linear-gradient(145deg, #2a1f2e, #7a3e6b);
+      color: #fdf4fa;
+    }
+    .dock-wa { background: #128C7E; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Ir aos serviços</a>
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">E</div>
+      <div>
+        <p class="eyebrow">Demo · Loja no Bolso</p>
+        <h1>Salão Estela</h1>
+      </div>
+    </div>
+    <button type="button" class="icon-btn" id="btn-info" aria-label="Sobre o salão">i</button>
+  </header>
+
+  <section class="hero" aria-label="Destaque">
+    <div class="hero-copy">
+      <p class="tag">Cabelo · unhas · estética · Centro</p>
+      <p class="lede">Cardápio de serviços no celular. Cliente escolhe, toca e já manda WhatsApp com o pedido pronto — sem PDF solto.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="btn-whatsapp-geral" href="#">WhatsApp do salão</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver serviços</a>
+      </div>
+    </div>
+    <dl class="meta">
+      <div><dt>Horário</dt><dd>Ter–Sáb · 9h–19h</dd></div>
+      <div><dt>Endereço</dt><dd>Rua das Camélias, 48</dd></div>
+    </dl>
+  </section>
+
+  <nav class="filters" aria-label="Seções" id="filters"></nav>
+
+  <main id="catalogo" class="catalog">
+    <div class="catalog-head">
+      <h2 id="section-title">Serviços</h2>
+      <label class="search">
+        <span class="sr-only">Buscar</span>
+        <input type="search" id="q" placeholder="Buscar serviço…" autocomplete="off" />
+      </label>
+    </div>
+    <div id="grid" class="grid"></div>
+    <p id="empty" class="empty" hidden>Nenhum serviço nessa busca.</p>
+  </main>
+
+  <footer class="foot">
+    <p><strong>Salão Estela</strong> — cardápio demonstrativo.</p>
+    <p class="muted">Modelo <em>Loja no Bolso</em> para salão/estética. Na loja real entram fotos, preços e WhatsApp de vocês.</p>
+    <p class="muted small">WhatsApp demo: +55 11 98888-0000 (não é número real).</p>
+  </footer>
+
+  <div class="dock" role="region" aria-label="Ações rápidas">
+    <a class="dock-wa" id="btn-whatsapp-dock" href="#">Agendar no WhatsApp</a>
+  </div>
+
+  <dialog id="dlg-item" class="dlg">
+    <form method="dialog" class="dlg-card">
+      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
+      <div id="dlg-swatch" class="dlg-swatch" aria-hidden="true"></div>
+      <h3 id="dlg-title"></h3>
+      <p id="dlg-price" class="price"></p>
+      <p id="dlg-desc" class="dlg-desc"></p>
+      <a class="btn btn-primary btn-block" id="dlg-wa" href="#" target="_blank" rel="noopener">Quero este no WhatsApp</a>
+      <button value="cancel" class="btn btn-ghost btn-block">Fechar</button>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-info" class="dlg">
+    <form method="dialog" class="dlg-card">
+      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
+      <h3>Como usar esta demo</h3>
+      <ol class="help">
+        <li>Abra no celular (Chrome/Safari).</li>
+        <li>Mostre home → serviço → botão WhatsApp.</li>
+        <li>Diga: “no de vocês, entram os preços e a foto real”.</li>
+      </ol>
+      <p class="muted small">Offline-friendly. Números fictícios. Nichos: salão, barbearia, estética, unhas.</p>
+      <button value="cancel" class="btn btn-primary btn-block">Entendi</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

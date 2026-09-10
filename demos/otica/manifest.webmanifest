@@ -1,0 +1,10 @@
+{
+  "name": "Ótica Lume",
+  "short_name": "Ótica Lume",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#eef2ff",
+  "theme_color": "#1e3a8a",
+  "lang": "pt-BR",
+  "description": "Demo catálogo ótica — Loja no Bolso"
+}

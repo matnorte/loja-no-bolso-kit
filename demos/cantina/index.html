@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1c1917" />
+  <meta name="description" content="Cantina do Beco — cardápio digital demo Loja no Bolso" />
+  <title>Cantina do Beco · Cardápio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    /* Tema food / cardápio QR */
+    :root {
+      --bg: #f7f3ec;
+      --bg-elev: #fffcf7;
+      --ink: #1c1917;
+      --ink-soft: #6b635a;
+      --line: #e8dfd2;
+      --accent: #c2410c;
+      --accent-ink: #fff7ed;
+      --chip: #f0e6d8;
+    }
+    body {
+      background:
+        radial-gradient(1100px 480px at 8% -12%, #fde68a 0%, transparent 55%),
+        radial-gradient(900px 400px at 100% 0%, #fed7aa 0%, transparent 42%),
+        var(--bg);
+    }
+    .mark {
+      background: linear-gradient(145deg, #1c1917, #c2410c);
+      color: #fff7ed;
+    }
+    .dock-wa { background: #128C7E; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Ir ao cardápio</a>
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">C</div>
+      <div>
+        <p class="eyebrow">Demo · Loja no Bolso</p>
+        <h1>Cantina do Beco</h1>
+      </div>
+    </div>
+    <button type="button" class="icon-btn" id="btn-info" aria-label="Sobre o cardápio">i</button>
+  </header>
+
+  <section class="hero" aria-label="Destaque">
+    <div class="hero-copy">
+      <p class="tag">Almoço · lanche · café · Centro</p>
+      <p class="lede">Cardápio no celular com QR na mesa. Cliente escolhe o prato e manda no WhatsApp — sem PDF velho nem fila no balcão só pra perguntar preço.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="btn-whatsapp-geral" href="#">WhatsApp da cantina</a>
+        <a class="btn btn-ghost" href="#catalogo">Ver cardápio</a>
+      </div>
+    </div>
+    <dl class="meta">
+      <div><dt>Horário</dt><dd>Seg–Sáb · 11h–22h</dd></div>
+      <div><dt>Endereço</dt><dd>Beco das Flores, 9</dd></div>
+    </dl>
+  </section>
+
+  <nav class="filters" aria-label="Seções" id="filters"></nav>
+
+  <main id="catalogo" class="catalog">
+    <div class="catalog-head">
+      <h2 id="section-title">Cardápio</h2>
+      <label class="search">
+        <span class="sr-only">Buscar</span>
+        <input type="search" id="q" placeholder="Buscar prato…" autocomplete="off" />
+      </label>
+    </div>
+    <div id="grid" class="grid"></div>
+    <p id="empty" class="empty" hidden>Nenhum item nessa busca.</p>
+  </main>
+
+  <footer class="foot">
+    <p><strong>Cantina do Beco</strong> — cardápio demonstrativo.</p>
+    <p class="muted">Modelo <em>Loja no Bolso</em> para food. Na casa real entram fotos, preços e WhatsApp de vocês + QR na mesa/vitrine.</p>
+    <p class="muted small">WhatsApp demo: +55 11 97777-0000 (não é número real).</p>
+  </footer>
+
+  <div class="dock" role="region" aria-label="Ações rápidas">
+    <a class="dock-wa" id="btn-whatsapp-dock" href="#">Pedir no WhatsApp</a>
+  </div>
+
+  <dialog id="dlg-item" class="dlg">
+    <form method="dialog" class="dlg-card">
+      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
+      <div id="dlg-swatch" class="dlg-swatch" aria-hidden="true"></div>
+      <h3 id="dlg-title"></h3>
+      <p id="dlg-price" class="price"></p>
+      <p id="dlg-desc" class="dlg-desc"></p>
+      <a class="btn btn-primary btn-block" id="dlg-wa" href="#" target="_blank" rel="noopener">Quero este no WhatsApp</a>
+      <button value="cancel" class="btn btn-ghost btn-block">Fechar</button>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-info" class="dlg">
+    <form method="dialog" class="dlg-card">
+      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
+      <h3>Como usar esta demo</h3>
+      <ol class="help">
+        <li>Abra no celular (Chrome/Safari).</li>
+        <li>Mostre home → prato → botão WhatsApp.</li>
+        <li>Diga: “QR na mesa, cardápio sempre atualizado, pedido cai no WA de vocês”.</li>
+      </ol>
+      <p class="muted small">Offline-friendly. Números fictícios. Nichos: restaurante, café, lanchonete, quilo, pizza.</p>
+      <button value="cancel" class="btn btn-primary btn-block">Entendi</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

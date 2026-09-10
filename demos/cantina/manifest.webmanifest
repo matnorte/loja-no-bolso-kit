@@ -1,0 +1,10 @@
+{
+  "name": "Cantina do Beco",
+  "short_name": "Cantina",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f3ec",
+  "theme_color": "#1c1917",
+  "lang": "pt-BR",
+  "description": "Demo cardápio digital QR — Loja no Bolso"
+}

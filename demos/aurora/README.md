@@ -47,3 +47,6 @@ Edite o array `PRODUCTS` em `app.js` e textos em `index.html` (nome da loja, end
 | `manifest.webmanifest` | Atalho “app” |
 | `qr-instructions.md` | Como gerar QR |
 | `serve.sh` | Atalho servidor local |
+
+## Visual (Boutique Aurora)
+Identidade própria de nicho (paleta/tipo). Base de layout compartilhada Loja no Bolso; **não** usar o CSS genérico Aurora antigo.

@@ -1,23 +1,29 @@
-/* Loja no Bolso — demo Boutique Aurora
-   Surface: Explore (catálogo). Offline-first: sem fontes remotas. */
+/* Salão Estela — estética/salão. Tom spa: blush + plum + cream. Display serif suave. */
 
 :root {
-  --bg: #f6f1ea;
-  --bg-elev: #fffdf9;
-  --ink: #1a1410;
-  --ink-soft: #5c534c;
-  --line: #e7ddd2;
-  --accent: #9a3412;
-  --accent-ink: #fff7ed;
-  --chip: #efe6db;
-  --shadow: 0 10px 30px rgba(26, 20, 16, 0.08);
-  --radius: 18px;
-  --radius-sm: 12px;
-  --font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
-  --dock-h: 72px;
-  --safe-b: env(safe-area-inset-bottom, 0px);
+  --bg: #faf6f3;
+  --bg-elev: #ffffff;
+  --ink: #2a1f28;
+  --ink-soft: #6b5a66;
+  --line: #eadfe6;
+  --accent: #8b4a6b;
+  --accent-ink: #fff8fb;
+  --mark-bg: linear-gradient(145deg, #c489a8, #8b4a6b);
+  --hero-wash: radial-gradient(120% 80% at 0% 0%, rgba(196,137,168,.18), transparent 55%);
+  --font-display: "Iowan Old Style", Palatino, Georgia, ui-serif, serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(42, 31, 40, 0.08);
 }
+
+
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); }
+body::before { content:""; position:fixed; inset:0; background: var(--hero-wash); pointer-events:none; z-index:0; }
+body > * { position: relative; z-index:1; }
+.top h1, .brand h1, h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.02em; }
+.mark { background: var(--mark-bg); color: #fff; border: 0; font-family: var(--font-display); }
+.btn-primary { background: var(--accent); border-color: var(--accent); }
+.tag { color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }

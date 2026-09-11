@@ -55,7 +55,7 @@
       price: 219,
       desc: "Enviesada, comprimento abaixo do joelho. Move bem na escada da Teresa.",
       tags: ["midi", "enviesada"],
-      swatch: "linear-gradient(155deg, #c pen 0%)".replace("c pen 0%", "c47a5a 0%, #a65d45 50%, #7d4030 100%"),
+      swatch: "linear-gradient(155deg, #c47a5a 0%, #a65d45 50%, #7d4030 100%)",
       tag: "Peça"
     },
     {
@@ -129,13 +129,6 @@
       tag: "Acessório"
     }
   ];
-
-  // fix saia swatch if mangled
-  PRODUCTS.forEach(function (p) {
-    if (p.id === "saia-midi-terracota") {
-      p.swatch = "linear-gradient(155deg, #c47a5a 0%, #a65d45 50%, #7d4030 100%)";
-    }
-  });
 
   var state = { cat: "todas", q: "" };
 

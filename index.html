@@ -2,35 +2,74 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1a1410" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f1a16" />
   <title>Loja no Bolso — demos</title>
   <style>
-    :root { --bg:#f4efe8; --card:#fffdf9; --ink:#1a1410; --soft:#5c534c; --line:#e4d9cc; --a:#9a3412; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(900px 420px at 0% -10%,#fed7aa 0%,transparent 55%),var(--bg);color:var(--ink);padding:16px 14px 40px;line-height:1.35}
-    .wrap{max-width:480px;margin:0 auto}
-    h1{font-size:1.3rem;margin:0 0 4px}
-    .sub{color:var(--soft);margin:0 0 16px;font-size:.9rem}
-    a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 10px}
-    .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);margin:0 0 4px}
-    .t{font-size:1.05rem;font-weight:700;margin:0 0 4px}
-    .h{margin:0;font-size:.86rem;color:var(--soft)}
-    .pill{display:inline-block;margin-top:8px;font-size:.75rem;background:#fff7ed;border:1px solid #fdba74;color:var(--a);border-radius:999px;padding:3px 8px;font-weight:600}
-    .note{margin-top:16px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:14px;font-size:.88rem;color:var(--soft)}
+    :root {
+      --bg: #f4efe6; --ink: #1f1a16; --soft: #5c534c; --line: #d9d0c4; --card: #fffcf7;
+      --accent: #a65d45;
+      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --display: "Iowan Old Style", Palatino, Georgia, ui-serif, serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg);
+      padding: 28px 18px 48px; line-height: 1.45;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    h1 { font-family: var(--display); font-weight: 600; font-size: 2rem; margin: 0 0 6px; letter-spacing: .02em; }
+    .sub { color: var(--soft); margin: 0 0 28px; }
+    .grid { display: grid; gap: 12px; }
+    @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+    a.card {
+      display: block; text-decoration: none; color: inherit; background: var(--card);
+      border: 1px solid var(--line); border-radius: 14px; padding: 16px 16px 18px;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    a.card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(31,26,22,.08); }
+    a.card strong { display: block; font-family: var(--display); font-size: 1.2rem; margin-bottom: 4px; }
+    a.card span { color: var(--soft); font-size: .92rem; }
+    .flag { display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 6px; font-weight: 700; }
+    footer { margin-top: 32px; color: var(--soft); font-size: .85rem; }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <main>
     <h1>Loja no Bolso</h1>
-    <p class="sub">Demos públicas · catálogo + WhatsApp · Teresópolis</p>
-    <a class="card" href="./demos/estela/"><p class="k">Estética</p><p class="t">Salão Estela</p><p class="h">Salão · barbearia · unhas</p><span class="pill">ICP #1</span></a>
-    <a class="card" href="./demos/nara/"><p class="k">Moda · flagship</p><p class="t">NARA</p><p class="h">Boutique editorial · catálogo + WA</p><span class="pill">usar em campo</span></a>
-    <a class="card" href="./demos/cantina/"><p class="k">Food</p><p class="t">Cantina do Beco</p><p class="h">Cardápio QR · café · lanche</p></a>
-    <a class="card" href="./demos/pet/"><p class="k">Pet</p><p class="t">Pet Casa Verde</p><p class="h">Ração · banho · acessórios</p></a>
-    <a class="card" href="./demos/otica/"><p class="k">Ótica</p><p class="t">Ótica Lume</p><p class="h">Armações · lentes · solar</p></a>
-    <a class="card" href="./demos/aurora/"><p class="k">Moda · fallback</p><p class="t">Boutique Aurora</p><p class="h">Multi · acessórios</p></a>
-    <div class="note">Itens e WhatsApp das demos são fictícios. Produto local para lojas de rua — site/catálogo/QR em poucos dias.</div>
-  </div>
+    <p class="sub">Demos de catálogo digital para venda presencial · Teresópolis. HTML estático, offline-friendly.</p>
+    <div class="grid">
+      <a class="card" href="demos/nara/">
+        <div class="flag">Flagship</div>
+        <strong>NARA</strong>
+        <span>Moda editorial · Centro</span>
+      </a>
+      <a class="card" href="demos/estela/">
+        <strong>Salão Estela</strong>
+        <span>Serviços · estética</span>
+      </a>
+      <a class="card" href="demos/cantina/">
+        <strong>Cantina do Beco</strong>
+        <span>Cardápio · food</span>
+      </a>
+      <a class="card" href="demos/pet/">
+        <strong>Pet Casa Verde</strong>
+        <span>Pet shop</span>
+      </a>
+      <a class="card" href="demos/otica/">
+        <strong>Ótica Lume</strong>
+        <span>Armações · lentes</span>
+      </a>
+      <a class="card" href="demos/aurora/">
+        <strong>Boutique Aurora</strong>
+        <span>Moda · fallback</span>
+      </a>
+    </div>
+    <footer>
+      <p>Sem dados de pagamento neste repositório. WA dos demos é fictício.</p>
+      <p>Repo: matnorte/loja-no-bolso-kit</p>
+    </footer>
+  </main>
 </body>
 </html>

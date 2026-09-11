@@ -23,3 +23,6 @@ Arquivo direto: abra `index.html` no Chrome.
 
 ## Personalizar lead
 Edite `PRODUCTS` e `SHOP_NAME` / `WA_E164` em `app.js` + textos em `index.html`.
+
+## Visual (Salão Estela)
+Identidade própria de nicho (paleta/tipo). Base de layout compartilhada Loja no Bolso; **não** usar o CSS genérico Aurora antigo.

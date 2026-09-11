@@ -19,3 +19,6 @@ Catálogo **offline-friendly** de pet shop para visita presencial. Complementa A
 
 ## Conteúdo
 14 itens · seções Ração / Banho & tosa / Acessórios / Brinquedos / Saúde / Pacotes · WA fictício `5511966660000`
+
+## Visual (Pet Casa Verde)
+Identidade própria de nicho (paleta/tipo). Base de layout compartilhada Loja no Bolso; **não** usar o CSS genérico Aurora antigo.

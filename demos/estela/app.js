@@ -1,4 +1,4 @@
-/* Salão Estela — demo offline Loja no Bolso (nicho estética) */
+/* Salão Estela — demo offline Loja no Bolso (nicho salão/estética) */
 (function () {
   "use strict";
 
@@ -95,14 +95,6 @@
       price: 280,
       desc: "Cabelo + maquiagem leve. Agendar com 48h de antecedência.",
       colors: ["#7a3e6b", "#f5e1c8"]
-    },
-    {
-      id: "vale-100",
-      name: "Vale-presente R$ 100",
-      section: "Pacotes",
-      price: 100,
-      desc: "Digital ou cartão. Presente sem erro de horário.",
-      colors: ["#5c3d52", "#ffe8f3"]
     }
   ];
 
@@ -130,16 +122,16 @@
 
   function productMessage(p) {
     return (
-      "Oi, " + SHOP_NAME + "! Vim pelo cardápio *Loja no Bolso* e quero agendar: " +
+      "Oi, " + SHOP_NAME + "! Vim pelo catálogo *Loja no Bolso* e quero: " +
       p.name +
       " (" +
       brl(p.price) +
-      "). Tem horário?"
+      "). Pode confirmar?"
     );
   }
 
   function generalMessage() {
-    return "Oi, " + SHOP_NAME + "! Vi o cardápio de serviços e quero agendar / saber horários.";
+    return "Oi, " + SHOP_NAME + "! Vi o cardápio digital e quero fazer um pedido / agendar banho.";
   }
 
   function matches(p) {

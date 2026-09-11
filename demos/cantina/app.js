@@ -1,284 +1,87 @@
-/* Cantina do Beco — demo offline Loja no Bolso (nicho food / cardápio QR) */
-(function () {
+(function(){
   "use strict";
-
-  // Número fictício só para montar o link wa.me na demo
-  var WA_E164 = "5511977770000";
-  var WA_BASE = "https://wa.me/" + WA_E164;
-  var SHOP_NAME = "Cantina do Beco";
-
+  var WA = '5511977770000';
+  var BASE = "https://wa.me/" + WA + "?text=";
+  var SHOP = 'Cantina do Beco';
   var PRODUCTS = [
-    {
-      id: "pf-bife",
-      name: "PF bife acebolado",
-      section: "Almoço",
-      price: 28,
-      desc: "Arroz, feijão, bife, ovo e salada. Porção generosa (demo).",
-      colors: ["#9a3412", "#fbbf24"]
-    },
-    {
-      id: "pf-frango",
-      name: "PF frango grelhado",
-      section: "Almoço",
-      price: 26,
-      desc: "Frango, legumes e arroz. Opção mais leve do dia.",
-      colors: ["#b45309", "#fde68a"]
-    },
-    {
-      id: "executivo",
-      name: "Executivo do dia",
-      section: "Almoço",
-      price: 32,
-      desc: "Prato rotativo + sobremesa pequena. Pergunte no balcão o do dia.",
-      colors: ["#7c2d12", "#fdba74"]
-    },
-    {
-      id: "feijoada",
-      name: "Feijoada (sáb)",
-      section: "Almoço",
-      price: 42,
-      desc: "Completa com acompanhamentos. Só aos sábados (demo).",
-      colors: ["#44403c", "#a8a29e"]
-    },
-    {
-      id: "x-tudo",
-      name: "X-Tudo da casa",
-      section: "Lanches",
-      price: 24,
-      desc: "Burger artesanal, queijo, bacon, salada e molho da casa.",
-      colors: ["#c2410c", "#fcd34d"]
-    },
-    {
-      id: "misto",
-      name: "Misto quente",
-      section: "Lanches",
-      price: 14,
-      desc: "Pão na chapa, queijo e presunto. Rápido pro café da tarde.",
-      colors: ["#a16207", "#fef3c7"]
-    },
-    {
-      id: "batata",
-      name: "Porção batata frita",
-      section: "Lanches",
-      price: 18,
-      desc: "Serve 2. Adicional cheddar/bacon sob consulta.",
-      colors: ["#ca8a04", "#fde047"]
-    },
-    {
-      id: "espresso",
-      name: "Espresso",
-      section: "Bebidas",
-      price: 6,
-      desc: "Curto e forte. Duplo +R$3 (demo).",
-      colors: ["#292524", "#a8a29e"]
-    },
-    {
-      id: "suco",
-      name: "Suco natural 400ml",
-      section: "Bebidas",
-      price: 12,
-      desc: "Laranja, limão ou maracujá conforme o dia.",
-      colors: ["#ea580c", "#fdba74"]
-    },
-    {
-      id: "refri",
-      name: "Refrigerante lata",
-      section: "Bebidas",
-      price: 7,
-      desc: "Opções geladas no balcão.",
-      colors: ["#0e7490", "#67e8f9"]
-    },
-    {
-      id: "pudim",
-      name: "Pudim caseiro",
-      section: "Doces",
-      price: 12,
-      desc: "Fatia generosa com calda de caramelo.",
-      colors: ["#92400e", "#fcd34d"]
-    },
-    {
-      id: "brownie",
-      name: "Brownie c/ sorvete",
-      section: "Doces",
-      price: 18,
-      desc: "Quente + bola de creme. Ideal pra dividir.",
-      colors: ["#44403c", "#d6d3d1"]
-    },
-    {
-      id: "combo-almoco",
-      name: "Combo almoço + suco",
-      section: "Combos",
-      price: 36,
-      desc: "PF à escolha + suco 400ml. Mensagem já montada no WA.",
-      colors: ["#c2410c", "#fbbf24"]
-    },
-    {
-      id: "combo-lanche",
-      name: "Combo lanche + refri",
-      section: "Combos",
-      price: 29,
-      desc: "X-Tudo + lata. Retirada ou mesa.",
-      colors: ["#9a3412", "#fde68a"]
-    }
+    { id:'bowl', name:'Bowl da casa', cat:'almoco', price:42, desc:'Base + proteína + greens. Montagem do dia.', img:'img/p1.jpg', tag:'Almoço' },
+    { id:'pizza', name:'Pizza forno a lenha', cat:'almoco', price:58, desc:'Massa fina, molho da casa. Fatia ou inteira.', img:'img/p2.jpg', tag:'Almoço' },
+    { id:'burger', name:'Burger smash', cat:'lanches', price:36, desc:'Blend 140g, queijo, picles, molho.', img:'img/p3.jpg', tag:'Lanche' },
+    { id:'drink', name:'Drink da casa', cat:'bebidas', price:28, desc:'Autor da semana. Pergunte no zap.', img:'img/p4.jpg', tag:'Bebida' },
+    { id:'doce', name:'Sobremesa', cat:'doces', price:22, desc:'Doce do dia — pergunta disponibilidade.', img:'img/p5.jpg', tag:'Doce' },
+    { id:'prato', name:'Prato executivo', cat:'almoco', price:39, desc:'Proteína + guarnições. Almoço corrido.', img:'img/p6.jpg', tag:'Almoço' },
+    { id:'hero', name:'Mesa completa', cat:'almoco', price:120, desc:'Sugestão pra 2 pessoas (demo).', img:'img/hero.jpg', tag:'Combo' }
   ];
-
-  var SECTIONS = ["Todos"].concat(
-    PRODUCTS.map(function (p) { return p.section; }).filter(function (s, i, a) {
-      return a.indexOf(s) === i;
-    })
-  );
-
-  var state = { section: "Todos", q: "" };
-
-  function brl(n) {
-    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  }
-
-  function waLink(text) {
-    return WA_BASE + "?text=" + encodeURIComponent(text);
-  }
-
-  function gradient(colors) {
-    var c0 = colors[0] || "#ccc";
-    var c1 = colors[1] || c0;
-    return "linear-gradient(145deg, " + c0 + " 0%, " + c1 + " 100%)";
-  }
-
-  function productMessage(p) {
-    return (
-      "Oi, " + SHOP_NAME + "! Vim pelo cardápio *Loja no Bolso* e quero: " +
-      p.name +
-      " (" +
-      brl(p.price) +
-      "). Pode confirmar?"
-    );
-  }
-
-  function generalMessage() {
-    return "Oi, " + SHOP_NAME + "! Vi o cardápio digital e quero fazer um pedido / saber o de hoje.";
-  }
-
-  function matches(p) {
-    if (state.section !== "Todos" && p.section !== state.section) return false;
-    if (!state.q) return true;
-    var hay = (p.name + " " + p.section + " " + p.desc).toLowerCase();
-    return hay.indexOf(state.q) !== -1;
-  }
-
-  function renderFilters() {
-    var el = document.getElementById("filters");
-    el.innerHTML = "";
-    SECTIONS.forEach(function (sec) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "chip";
-      b.textContent = sec;
-      b.setAttribute("aria-pressed", sec === state.section ? "true" : "false");
-      b.addEventListener("click", function () {
-        state.section = sec;
-        renderFilters();
-        renderGrid();
-      });
-      el.appendChild(b);
+  var CATS = ['todas', 'almoco', 'lanches', 'bebidas', 'doces'];
+  var LABELS = {'todas': 'Tudo', 'almoco': 'Almoço', 'lanches': 'Lanches', 'bebidas': 'Bebidas', 'doces': 'Doces'};
+  var state = { cat: CATS[0], q: "" };
+  var els = {
+    chips: document.getElementById("chips"),
+    grid: document.getElementById("grid"),
+    empty: document.getElementById("empty"),
+    count: document.getElementById("count"),
+    q: document.getElementById("q"),
+    searchBar: document.getElementById("searchBar"),
+    btnSearch: document.getElementById("btnSearch"),
+    sheet: document.getElementById("sheet"),
+    sheetImg: document.getElementById("sheetImg"),
+    sheetCat: document.getElementById("sheetCat"),
+    sheetTitle: document.getElementById("sheetTitle"),
+    sheetPrice: document.getElementById("sheetPrice"),
+    sheetDesc: document.getElementById("sheetDesc"),
+    sheetWa: document.getElementById("sheetWa"),
+    waDock: document.getElementById("waDock"),
+    waHero: document.getElementById("waHero")
+  };
+  function money(n){ return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function wa(t){ return BASE + encodeURIComponent(t); }
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return PRODUCTS.filter(function(p){
+      if(state.cat !== CATS[0] && p.cat !== state.cat) return false;
+      if(!q) return true;
+      return (p.name+" "+p.desc+" "+p.tag).toLowerCase().indexOf(q)!==-1;
     });
   }
-
-  function renderGrid() {
-    var grid = document.getElementById("grid");
-    var empty = document.getElementById("empty");
-    var title = document.getElementById("section-title");
-    var list = PRODUCTS.filter(matches);
-
-    title.textContent = state.section === "Todos" ? "Cardápio" : state.section;
-
-    grid.innerHTML = "";
-    empty.hidden = list.length > 0;
-
-    list.forEach(function (p) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "card";
-      btn.setAttribute("aria-label", p.name + ", " + brl(p.price));
-
-      var art = document.createElement("div");
-      art.className = "card-art";
-      art.style.background = gradient(p.colors);
-      var badge = document.createElement("span");
-      badge.textContent = brl(p.price);
-      art.appendChild(badge);
-
-      var body = document.createElement("div");
-      body.className = "card-body";
-      var sec = document.createElement("p");
-      sec.className = "sec";
-      sec.textContent = p.section;
-      var h = document.createElement("h3");
-      h.textContent = p.name;
-      var price = document.createElement("p");
-      price.className = "price";
-      price.textContent = brl(p.price);
-      body.appendChild(sec);
-      body.appendChild(h);
-      body.appendChild(price);
-
-      btn.appendChild(art);
-      btn.appendChild(body);
-      btn.addEventListener("click", function () {
-        openItem(p);
-      });
-      grid.appendChild(btn);
+  function renderChips(){
+    els.chips.innerHTML="";
+    CATS.forEach(function(c){
+      var b=document.createElement("button"); b.type="button";
+      b.className="chip"+(state.cat===c?" is-on":"");
+      b.textContent=LABELS[c]||c;
+      b.onclick=function(){ state.cat=c; renderChips(); renderGrid(); };
+      els.chips.appendChild(b);
     });
   }
-
-  function openItem(p) {
-    var dlg = document.getElementById("dlg-item");
-    document.getElementById("dlg-title").textContent = p.name;
-    document.getElementById("dlg-price").textContent = brl(p.price);
-    document.getElementById("dlg-desc").textContent = p.desc;
-    document.getElementById("dlg-swatch").style.background = gradient(p.colors);
-    var a = document.getElementById("dlg-wa");
-    a.href = waLink(productMessage(p));
-    if (typeof dlg.showModal === "function") dlg.showModal();
-    else dlg.setAttribute("open", "");
-  }
-
-  function bindWaGeneral() {
-    var href = waLink(generalMessage());
-    var g = document.getElementById("btn-whatsapp-geral");
-    var d = document.getElementById("btn-whatsapp-dock");
-    g.href = href;
-    d.href = href;
-    g.target = "_blank";
-    d.target = "_blank";
-    g.rel = "noopener";
-    d.rel = "noopener";
-  }
-
-  function bindInfo() {
-    var btn = document.getElementById("btn-info");
-    var dlg = document.getElementById("dlg-info");
-    btn.addEventListener("click", function () {
-      if (typeof dlg.showModal === "function") dlg.showModal();
-      else dlg.setAttribute("open", "");
+  function renderGrid(){
+    var list=filtered(); els.grid.innerHTML="";
+    els.count.textContent=list.length+(list.length===1?" item":" itens");
+    els.empty.hidden=list.length>0;
+    list.forEach(function(p){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="card";
+      btn.innerHTML='<div class="card-photo"><img src="'+p.img+'" alt="" loading="lazy" width="600" height="800"/></div><p class="card-name">'+p.name+'</p><p class="card-price">'+money(p.price)+'</p>';
+      btn.onclick=function(){ openSheet(p); };
+      els.grid.appendChild(btn);
     });
   }
-
-  function bindSearch() {
-    var input = document.getElementById("q");
-    var t = null;
-    input.addEventListener("input", function () {
-      var v = input.value.trim().toLowerCase();
-      window.clearTimeout(t);
-      t = window.setTimeout(function () {
-        state.q = v;
-        renderGrid();
-      }, 120);
-    });
+  function openSheet(p){
+    els.sheetImg.src=p.img; els.sheetImg.alt=p.name;
+    els.sheetCat.textContent=p.tag+" · "+(LABELS[p.cat]||p.cat);
+    els.sheetTitle.textContent=p.name; els.sheetPrice.textContent=money(p.price);
+    els.sheetDesc.textContent=p.desc;
+    els.sheetWa.href=wa("Oi! Vi o catálogo da "+SHOP+" e quero: "+p.name+" ("+money(p.price)+"). Ainda tem?");
+    els.sheet.hidden=false; document.body.style.overflow="hidden";
   }
-
-  bindWaGeneral();
-  bindInfo();
-  bindSearch();
-  renderFilters();
-  renderGrid();
+  function closeSheet(){ els.sheet.hidden=true; document.body.style.overflow=""; }
+  els.btnSearch.onclick=function(){
+    var open=els.searchBar.hidden; els.searchBar.hidden=!open;
+    els.btnSearch.setAttribute("aria-expanded", open?"true":"false");
+    if(open) els.q.focus();
+  };
+  els.q.oninput=function(){ state.q=els.q.value||""; renderGrid(); };
+  document.onclick=function(e){ if(e.target.closest("[data-close]")) closeSheet(); };
+  document.onkeydown=function(e){ if(e.key==="Escape") closeSheet(); };
+  var greet=wa("Oi! Vi o catálogo da "+SHOP+" e queria tirar uma dúvida.");
+  els.waDock.href=greet; els.waHero.href=greet;
+  renderChips(); renderGrid();
 })();

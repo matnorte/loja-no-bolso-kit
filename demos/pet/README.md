@@ -1,24 +1,7 @@
-# Demo — Pet Casa Verde (nicho pet)
+# Pet Casa Verde
 
-Catálogo **offline-friendly** de pet shop para visita presencial. Complementa Aurora (moda), Estela (salão) e Cantina (food).
+Demo photo-first Loja no Bolso.
 
-## Quando usar
-- Pet shop, banho/tosa, ração, acessórios
-- Alvos Centro: Faxinas Pet, Campo Fértil (e similares no olho)
-
-## Subir local
 ```bash
-./serve.sh
-# ou: PORT=8768 ./serve.sh
+python3 -m http.server 8765
 ```
-
-## Clone rápido
-```bash
-./scripts/clone-demo.sh pet "Nome da Pet" 5521999999999
-```
-
-## Conteúdo
-14 itens · seções Ração / Banho & tosa / Acessórios / Brinquedos / Saúde / Pacotes · WA fictício `5511966660000`
-
-## Visual (Pet Casa Verde)
-Identidade própria de nicho (paleta/tipo). Base de layout compartilhada Loja no Bolso; **não** usar o CSS genérico Aurora antigo.

@@ -1,284 +1,87 @@
-/* Pet Casa Verde — demo offline Loja no Bolso (nicho pet) */
-(function () {
+(function(){
   "use strict";
-
-  // Número fictício só para montar o link wa.me na demo
-  var WA_E164 = "5511966660000";
-  var WA_BASE = "https://wa.me/" + WA_E164;
-  var SHOP_NAME = "Pet Casa Verde";
-
+  var WA = '5511966660000';
+  var BASE = "https://wa.me/" + WA + "?text=";
+  var SHOP = 'Pet Casa Verde';
   var PRODUCTS = [
-    {
-      id: "racao-cao-15",
-      name: "Ração cães adulto 15 kg",
-      section: "Ração",
-      price: 189,
-      desc: "Linha premium demo. Entrega no bairro sob consulta.",
-      colors: ["#14532d", "#86efac"]
-    },
-    {
-      id: "racao-gato-10",
-      name: "Ração gatos 10 kg",
-      section: "Ração",
-      price: 159,
-      desc: "Fórmula indoor (demo). Troca de marca com orientação no balcão.",
-      colors: ["#166534", "#bbf7d0"]
-    },
-    {
-      id: "racao-filhote",
-      name: "Ração filhote 3 kg",
-      section: "Ração",
-      price: 72,
-      desc: "Crescimento. Ideal pra quem não quer carregar saco grande.",
-      colors: ["#15803d", "#d9f99d"]
-    },
-    {
-      id: "banho-medio",
-      name: "Banho cão médio",
-      section: "Banho & tosa",
-      price: 75,
-      desc: "Higienização + secagem. Horário sob reserva no WhatsApp.",
-      colors: ["#0f766e", "#99f6e4"]
-    },
-    {
-      id: "tosa-higienica",
-      name: "Tosa higiênica",
-      section: "Banho & tosa",
-      price: 55,
-      desc: "Patinhas, barriga e região íntima. Combine com banho.",
-      colors: ["#0d9488", "#ccfbf1"]
-    },
-    {
-      id: "banho-gato",
-      name: "Banho gato (com manejo)",
-      section: "Banho & tosa",
-      price: 90,
-      desc: "Equipe acostumada com felinos. Avaliar temperamento na loja.",
-      colors: ["#115e59", "#5eead4"]
-    },
-    {
-      id: "coleira",
-      name: "Coleira ajustável",
-      section: "Acessórios",
-      price: 39,
-      desc: "Nylon reforçado, várias cores (demo).",
-      colors: ["#3f6212", "#bef264"]
-    },
-    {
-      id: "guia",
-      name: "Guia 1,5 m",
-      section: "Acessórios",
-      price: 45,
-      desc: "Passeio diário. Mosquetão metálico.",
-      colors: ["#4d7c0f", "#a3e635"]
-    },
-    {
-      id: "comedouro",
-      name: "Comedouro inox duplo",
-      section: "Acessórios",
-      price: 68,
-      desc: "Base antiderrapante. Água + ração.",
-      colors: ["#365314", "#d9f99d"]
-    },
-    {
-      id: "brinquedo-bola",
-      name: "Bola mordedor",
-      section: "Brinquedos",
-      price: 29,
-      desc: "Borracha macia. Não substitui supervisão.",
-      colors: ["#854d0e", "#fde68a"]
-    },
-    {
-      id: "arranhador",
-      name: "Arranhador torre P",
-      section: "Brinquedos",
-      price: 149,
-      desc: "Sisal + plataforma. Montagem simples (demo).",
-      colors: ["#713f12", "#fcd34d"]
-    },
-    {
-      id: "antipulgas",
-      name: "Antipulgas spot-on (un.)",
-      section: "Saúde",
-      price: 89,
-      desc: "Uso conforme peso. Orientações no balcão — demo ilustrativa.",
-      colors: ["#9f1239", "#fda4af"]
-    },
-    {
-      id: "vermifugo",
-      name: "Vermífugo comprimido",
-      section: "Saúde",
-      price: 42,
-      desc: "Dose por peso. Consulte rotina com o vet de confiança.",
-      colors: ["#be123c", "#fecdd3"]
-    },
-    {
-      id: "pacote-mensal",
-      name: "Pacote 4 banhos / mês",
-      section: "Pacotes",
-      price: 260,
-      desc: "Cão médio. Economia vs avulso. Agendar pelo WhatsApp.",
-      colors: ["#14532d", "#86efac"]
-    }
+    { id:'racao1', name:'Ração premium 15kg', cat:'racao', price:189, desc:'Linha adulta. Consulte sabor/porte.', img:'img/p1.jpg', tag:'Ração' },
+    { id:'banho', name:'Banho & tosa completo', cat:'banho', price:95, desc:'Higiene + tosa higiênica. Por porte.', img:'img/p2.jpg', tag:'Serviço' },
+    { id:'passeio', name:'Kit passeio', cat:'acessorios', price:79, desc:'Guia + peitoral (demo).', img:'img/p3.jpg', tag:'Acessório' },
+    { id:'pet', name:'Cuidados diários', cat:'acessorios', price:49, desc:'Itens de higiene e conforto.', img:'img/p4.jpg', tag:'Acessório' },
+    { id:'banho2', name:'Spa pet', cat:'banho', price:130, desc:'Banho + hidratação + perfume pet.', img:'img/p5.jpg', tag:'Serviço' },
+    { id:'dog', name:'Cãezinhos felizes', cat:'acessorios', price:39, desc:'Brinquedo resistente (demo).', img:'img/p6.jpg', tag:'Brinquedo' },
+    { id:'hero', name:'Combo boas-vindas', cat:'racao', price:159, desc:'Ração + brinde higiene (promo demo).', img:'img/hero.jpg', tag:'Combo' }
   ];
-
-  var SECTIONS = ["Todos"].concat(
-    PRODUCTS.map(function (p) { return p.section; }).filter(function (s, i, a) {
-      return a.indexOf(s) === i;
-    })
-  );
-
-  var state = { section: "Todos", q: "" };
-
-  function brl(n) {
-    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  }
-
-  function waLink(text) {
-    return WA_BASE + "?text=" + encodeURIComponent(text);
-  }
-
-  function gradient(colors) {
-    var c0 = colors[0] || "#ccc";
-    var c1 = colors[1] || c0;
-    return "linear-gradient(145deg, " + c0 + " 0%, " + c1 + " 100%)";
-  }
-
-  function productMessage(p) {
-    return (
-      "Oi, " + SHOP_NAME + "! Vim pelo catálogo *Loja no Bolso* e quero: " +
-      p.name +
-      " (" +
-      brl(p.price) +
-      "). Pode me atender?"
-    );
-  }
-
-  function generalMessage() {
-    return "Oi, " + SHOP_NAME + "! Vi o catálogo pet e quero fazer um pedido / agendar banho.";
-  }
-
-  function matches(p) {
-    if (state.section !== "Todos" && p.section !== state.section) return false;
-    if (!state.q) return true;
-    var hay = (p.name + " " + p.section + " " + p.desc).toLowerCase();
-    return hay.indexOf(state.q) !== -1;
-  }
-
-  function renderFilters() {
-    var el = document.getElementById("filters");
-    el.innerHTML = "";
-    SECTIONS.forEach(function (sec) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "chip";
-      b.textContent = sec;
-      b.setAttribute("aria-pressed", sec === state.section ? "true" : "false");
-      b.addEventListener("click", function () {
-        state.section = sec;
-        renderFilters();
-        renderGrid();
-      });
-      el.appendChild(b);
+  var CATS = ['todas', 'racao', 'banho', 'acessorios'];
+  var LABELS = {'todas': 'Tudo', 'racao': 'Ração', 'banho': 'Banho & tosa', 'acessorios': 'Acessórios'};
+  var state = { cat: CATS[0], q: "" };
+  var els = {
+    chips: document.getElementById("chips"),
+    grid: document.getElementById("grid"),
+    empty: document.getElementById("empty"),
+    count: document.getElementById("count"),
+    q: document.getElementById("q"),
+    searchBar: document.getElementById("searchBar"),
+    btnSearch: document.getElementById("btnSearch"),
+    sheet: document.getElementById("sheet"),
+    sheetImg: document.getElementById("sheetImg"),
+    sheetCat: document.getElementById("sheetCat"),
+    sheetTitle: document.getElementById("sheetTitle"),
+    sheetPrice: document.getElementById("sheetPrice"),
+    sheetDesc: document.getElementById("sheetDesc"),
+    sheetWa: document.getElementById("sheetWa"),
+    waDock: document.getElementById("waDock"),
+    waHero: document.getElementById("waHero")
+  };
+  function money(n){ return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function wa(t){ return BASE + encodeURIComponent(t); }
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return PRODUCTS.filter(function(p){
+      if(state.cat !== CATS[0] && p.cat !== state.cat) return false;
+      if(!q) return true;
+      return (p.name+" "+p.desc+" "+p.tag).toLowerCase().indexOf(q)!==-1;
     });
   }
-
-  function renderGrid() {
-    var grid = document.getElementById("grid");
-    var empty = document.getElementById("empty");
-    var title = document.getElementById("section-title");
-    var list = PRODUCTS.filter(matches);
-
-    title.textContent = state.section === "Todos" ? "Catálogo" : state.section;
-
-    grid.innerHTML = "";
-    empty.hidden = list.length > 0;
-
-    list.forEach(function (p) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "card";
-      btn.setAttribute("aria-label", p.name + ", " + brl(p.price));
-
-      var art = document.createElement("div");
-      art.className = "card-art";
-      art.style.background = gradient(p.colors);
-      var badge = document.createElement("span");
-      badge.textContent = brl(p.price);
-      art.appendChild(badge);
-
-      var body = document.createElement("div");
-      body.className = "card-body";
-      var sec = document.createElement("p");
-      sec.className = "sec";
-      sec.textContent = p.section;
-      var h = document.createElement("h3");
-      h.textContent = p.name;
-      var price = document.createElement("p");
-      price.className = "price";
-      price.textContent = brl(p.price);
-      body.appendChild(sec);
-      body.appendChild(h);
-      body.appendChild(price);
-
-      btn.appendChild(art);
-      btn.appendChild(body);
-      btn.addEventListener("click", function () {
-        openItem(p);
-      });
-      grid.appendChild(btn);
+  function renderChips(){
+    els.chips.innerHTML="";
+    CATS.forEach(function(c){
+      var b=document.createElement("button"); b.type="button";
+      b.className="chip"+(state.cat===c?" is-on":"");
+      b.textContent=LABELS[c]||c;
+      b.onclick=function(){ state.cat=c; renderChips(); renderGrid(); };
+      els.chips.appendChild(b);
     });
   }
-
-  function openItem(p) {
-    var dlg = document.getElementById("dlg-item");
-    document.getElementById("dlg-title").textContent = p.name;
-    document.getElementById("dlg-price").textContent = brl(p.price);
-    document.getElementById("dlg-desc").textContent = p.desc;
-    document.getElementById("dlg-swatch").style.background = gradient(p.colors);
-    var a = document.getElementById("dlg-wa");
-    a.href = waLink(productMessage(p));
-    if (typeof dlg.showModal === "function") dlg.showModal();
-    else dlg.setAttribute("open", "");
-  }
-
-  function bindWaGeneral() {
-    var href = waLink(generalMessage());
-    var g = document.getElementById("btn-whatsapp-geral");
-    var d = document.getElementById("btn-whatsapp-dock");
-    g.href = href;
-    d.href = href;
-    g.target = "_blank";
-    d.target = "_blank";
-    g.rel = "noopener";
-    d.rel = "noopener";
-  }
-
-  function bindInfo() {
-    var btn = document.getElementById("btn-info");
-    var dlg = document.getElementById("dlg-info");
-    btn.addEventListener("click", function () {
-      if (typeof dlg.showModal === "function") dlg.showModal();
-      else dlg.setAttribute("open", "");
+  function renderGrid(){
+    var list=filtered(); els.grid.innerHTML="";
+    els.count.textContent=list.length+(list.length===1?" item":" itens");
+    els.empty.hidden=list.length>0;
+    list.forEach(function(p){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="card";
+      btn.innerHTML='<div class="card-photo"><img src="'+p.img+'" alt="" loading="lazy" width="600" height="800"/></div><p class="card-name">'+p.name+'</p><p class="card-price">'+money(p.price)+'</p>';
+      btn.onclick=function(){ openSheet(p); };
+      els.grid.appendChild(btn);
     });
   }
-
-  function bindSearch() {
-    var input = document.getElementById("q");
-    var t = null;
-    input.addEventListener("input", function () {
-      var v = input.value.trim().toLowerCase();
-      window.clearTimeout(t);
-      t = window.setTimeout(function () {
-        state.q = v;
-        renderGrid();
-      }, 120);
-    });
+  function openSheet(p){
+    els.sheetImg.src=p.img; els.sheetImg.alt=p.name;
+    els.sheetCat.textContent=p.tag+" · "+(LABELS[p.cat]||p.cat);
+    els.sheetTitle.textContent=p.name; els.sheetPrice.textContent=money(p.price);
+    els.sheetDesc.textContent=p.desc;
+    els.sheetWa.href=wa("Oi! Vi o catálogo da "+SHOP+" e quero: "+p.name+" ("+money(p.price)+"). Ainda tem?");
+    els.sheet.hidden=false; document.body.style.overflow="hidden";
   }
-
-  bindWaGeneral();
-  bindInfo();
-  bindSearch();
-  renderFilters();
-  renderGrid();
+  function closeSheet(){ els.sheet.hidden=true; document.body.style.overflow=""; }
+  els.btnSearch.onclick=function(){
+    var open=els.searchBar.hidden; els.searchBar.hidden=!open;
+    els.btnSearch.setAttribute("aria-expanded", open?"true":"false");
+    if(open) els.q.focus();
+  };
+  els.q.oninput=function(){ state.q=els.q.value||""; renderGrid(); };
+  document.onclick=function(e){ if(e.target.closest("[data-close]")) closeSheet(); };
+  document.onkeydown=function(e){ if(e.key==="Escape") closeSheet(); };
+  var greet=wa("Oi! Vi o catálogo da "+SHOP+" e queria tirar uma dúvida.");
+  els.waDock.href=greet; els.waHero.href=greet;
+  renderChips(); renderGrid();
 })();

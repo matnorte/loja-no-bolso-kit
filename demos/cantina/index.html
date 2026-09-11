@@ -3,90 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#14532d" />
-  <meta name="description" content="Cantina do Beco — cardápio digital offline-friendly para restaurante" />
+  <meta name="theme-color" content="#1c1915" />
+  <meta name="description" content="Cardápio digital da Cantina do Beco" />
   <title>Cantina do Beco · Cardápio</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <a class="skip" href="#catalogo">Ir para o cardápio</a>
-
-  <header class="top">
-    <div class="brand">
-      <div class="mark" aria-hidden="true">C</div>
-      <div>
-        <p class="eyebrow">Demo · Loja no Bolso</p>
-        <h1>Cantina do Beco</h1>
+  <a class="skip" href="#grid">Ir ao catálogo</a>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-loc">Centro · Teresópolis</span>
+        <a class="brand-name" href="#">Cantina do Beco</a>
       </div>
+      <button type="button" class="nav-btn" id="btnSearch" aria-label="Buscar" aria-expanded="false">Buscar</button>
     </div>
-    <button type="button" class="icon-btn" id="btn-info" aria-label="Sobre o cardápio">i</button>
+    <div class="search-bar" id="searchBar" hidden>
+      <input type="search" id="q" placeholder="Buscar no cardápio…" autocomplete="off" enterkeyhint="search" />
+    </div>
   </header>
-
-  <section class="hero" aria-label="Destaque">
+  <section class="hero">
+    <img class="hero-img" src="img/hero.jpg" alt="Pratos" width="900" height="1200" />
+    <div class="hero-scrim"></div>
     <div class="hero-copy">
-      <p class="tag">Almoço · lanche · café · Centro</p>
-      <p class="lede">Cardápio no celular com QR na mesa. Cliente escolhe o prato e manda no WhatsApp — sem PDF velho nem fila no balcão só pra perguntar preço.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" id="btn-whatsapp-geral" href="#">WhatsApp da cantina</a>
-        <a class="btn btn-ghost" href="#catalogo">Ver cardápio</a>
+      <p class="eyebrow">Almoço · lanches · bar</p>
+      <h1>Cardápio na mesa.<br />Pedido no WhatsApp.</h1>
+      <p class="hero-sub">Cliente escolhe, toca e manda o pedido pronto pro balcão.</p>
+      <div class="hero-cta">
+        <a class="btn btn-light" href="#grid">Ver cardápio</a>
+        <a class="btn btn-ghost" id="waHero" href="#" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
-    <dl class="meta">
-      <div><dt>Horário</dt><dd>Seg–Sáb · 11h–22h</dd></div>
-      <div><dt>Endereço</dt><dd>Beco das Flores, 9</dd></div>
+  </section>
+  <div class="chips" role="tablist" aria-label="Filtros" id="chips"></div>
+  <main>
+    <div class="section-head">
+      <h2>Cardápio</h2>
+      <p id="count" class="muted"></p>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>Nada encontrado.</p>
+  </main>
+  <section class="store-card">
+    <h2>Na loja</h2>
+    <dl>
+      <div><dt>Endereço</dt><dd>Beco das Flores, 12</dd></div>
+      <div><dt>Horário</dt><dd>Ter–dom 11h–23h</dd></div>
+      <div><dt>Obs.</dt><dd>Cardápio sujeito a disponibilidade</dd></div>
     </dl>
   </section>
-
-  <nav class="filters" aria-label="Seções" id="filters"></nav>
-
-  <main id="catalogo" class="catalog">
-    <div class="catalog-head">
-      <h2 id="section-title">Cardápio</h2>
-      <label class="search">
-        <span class="sr-only">Buscar</span>
-        <input type="search" id="q" placeholder="Buscar prato…" autocomplete="off" />
-      </label>
+  <footer class="foot"><p>Demo Loja no Bolso · fotos de stock para apresentação</p></footer>
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-bg" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <button type="button" class="sheet-x" data-close aria-label="Fechar">×</button>
+      <img id="sheetImg" class="sheet-img" alt="" />
+      <div class="sheet-body">
+        <p class="sheet-cat" id="sheetCat"></p>
+        <h3 id="sheetTitle"></h3>
+        <p class="sheet-price" id="sheetPrice"></p>
+        <p class="sheet-desc" id="sheetDesc"></p>
+        <a class="btn btn-dark btn-block" id="sheetWa" href="#" target="_blank" rel="noopener">Perguntar no WhatsApp</a>
+      </div>
     </div>
-    <div id="grid" class="grid"></div>
-    <p id="empty" class="empty" hidden>Nenhum item nessa busca.</p>
-  </main>
-
-  <footer class="foot">
-    <p><strong>Cantina do Beco</strong> — cardápio demonstrativo.</p>
-    <p class="muted">Modelo <em>Loja no Bolso</em> para food. Na casa real entram fotos, preços e WhatsApp de vocês + QR na mesa/vitrine.</p>
-    <p class="muted small">WhatsApp demo: +55 11 97777-0000 (não é número real).</p>
-  </footer>
-
-  <div class="dock" role="region" aria-label="Ações rápidas">
-    <a class="dock-wa" id="btn-whatsapp-dock" href="#">Pedir no WhatsApp</a>
   </div>
-
-  <dialog id="dlg-item" class="dlg">
-    <form method="dialog" class="dlg-card">
-      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
-      <div id="dlg-swatch" class="dlg-swatch" aria-hidden="true"></div>
-      <h3 id="dlg-title"></h3>
-      <p id="dlg-price" class="price"></p>
-      <p id="dlg-desc" class="dlg-desc"></p>
-      <a class="btn btn-primary btn-block" id="dlg-wa" href="#" target="_blank" rel="noopener">Quero este no WhatsApp</a>
-      <button value="cancel" class="btn btn-ghost btn-block">Fechar</button>
-    </form>
-  </dialog>
-
-  <dialog id="dlg-info" class="dlg">
-    <form method="dialog" class="dlg-card">
-      <button value="cancel" class="dlg-close" aria-label="Fechar">×</button>
-      <h3>Como usar esta demo</h3>
-      <ol class="help">
-        <li>Abra no celular (Chrome/Safari).</li>
-        <li>Mostre home → prato → botão WhatsApp.</li>
-        <li>Diga: “QR na mesa, cardápio sempre atualizado, pedido cai no WA de vocês”.</li>
-      </ol>
-      <p class="muted small">Offline-friendly. Números fictícios. Nichos: restaurante, café, lanchonete, quilo, pizza.</p>
-      <button value="cancel" class="btn btn-primary btn-block">Entendi</button>
-    </form>
-  </dialog>
-
-  <script src="app.js"></script>
+  <a class="dock" id="waDock" href="#" target="_blank" rel="noopener">
+    <span>Falar com a loja</span>
+    <strong>WhatsApp</strong>
+  </a>
+  <script src="app.js" defer></script>
 </body>
 </html>

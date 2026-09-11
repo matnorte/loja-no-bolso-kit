@@ -1,260 +1,87 @@
-/* Salão Estela — demo offline Loja no Bolso (nicho salão/estética) */
-(function () {
+(function(){
   "use strict";
-
-  // Número fictício só para montar o link wa.me na demo
-  var WA_E164 = "5511988880000";
-  var WA_BASE = "https://wa.me/" + WA_E164;
-  var SHOP_NAME = "Salão Estela";
-
+  var WA = '5511988880000';
+  var BASE = "https://wa.me/" + WA + "?text=";
+  var SHOP = 'Salão Estela';
   var PRODUCTS = [
-    {
-      id: "corte-feminino",
-      name: "Corte feminino",
-      section: "Cabelo",
-      price: 90,
-      desc: "Lavagem + corte + finalização. Tempo médio 45–60 min (demo).",
-      colors: ["#7a3e6b", "#d4a5c3"]
-    },
-    {
-      id: "escova",
-      name: "Escova modeladora",
-      section: "Cabelo",
-      price: 70,
-      desc: "Finalização com escova. Ideal pós-lavagem ou evento.",
-      colors: ["#5c3d52", "#e8c9dc"]
-    },
-    {
-      id: "coloracao",
-      name: "Coloração (raiz)",
-      section: "Cabelo",
-      price: 180,
-      desc: "Retoque de raiz com produto profissional. Orçamento final na avaliação.",
-      colors: ["#4a2c40", "#c97b9a"]
-    },
-    {
-      id: "hidratacao",
-      name: "Hidratação profunda",
-      section: "Cabelo",
-      price: 120,
-      desc: "Máscara + massagem no couro. Cabelo opaco ou ressecado.",
-      colors: ["#8b5a7a", "#f0d5e4"]
-    },
-    {
-      id: "manicure",
-      name: "Manicure completa",
-      section: "Unhas",
-      price: 45,
-      desc: "Cutilagem + esmaltação tradicional.",
-      colors: ["#b76e79", "#f6d6dc"]
-    },
-    {
-      id: "pedicure",
-      name: "Pedicure completa",
-      section: "Unhas",
-      price: 55,
-      desc: "Cuidados + esmaltação. Combine com manicure.",
-      colors: ["#9a5b66", "#efc5cd"]
-    },
-    {
-      id: "gel",
-      name: "Alongamento em gel",
-      section: "Unhas",
-      price: 160,
-      desc: "Estrutura em gel + nail art simples (demo).",
-      colors: ["#6e3a55", "#e2b7d0"]
-    },
-    {
-      id: "design-sobran",
-      name: "Design de sobrancelha",
-      section: "Estética",
-      price: 40,
-      desc: "Limpeza e desenho com pinça/linha conforme preferência.",
-      colors: ["#3d2a38", "#cbb4c2"]
-    },
-    {
-      id: "limpeza-pele",
-      name: "Limpeza de pele",
-      section: "Estética",
-      price: 150,
-      desc: "Higienização + extração + máscara calmante (sessão demo).",
-      colors: ["#5a4a62", "#ddd0e0"]
-    },
-    {
-      id: "barba",
-      name: "Barba completa",
-      section: "Barbearia",
-      price: 50,
-      desc: "Toalha quente + acabamento na navalha (versão mista do salão).",
-      colors: ["#2a1f2e", "#8a7a86"]
-    },
-    {
-      id: "combo-noiva",
-      name: "Combo madrinha / evento",
-      section: "Pacotes",
-      price: 280,
-      desc: "Cabelo + maquiagem leve. Agendar com 48h de antecedência.",
-      colors: ["#7a3e6b", "#f5e1c8"]
-    }
+    { id:'corte', name:'Corte feminino', cat:'cabelo', price:90, desc:'Lavagem + corte + finalização. 45–60 min.', img:'img/p1.jpg', tag:'Cabelo' },
+    { id:'escova', name:'Escova modeladora', cat:'cabelo', price:70, desc:'Finalização com escova. Pós-lavagem ou evento.', img:'img/p2.jpg', tag:'Cabelo' },
+    { id:'color', name:'Coloração (raiz)', cat:'cabelo', price:180, desc:'Retoque de raiz. Orçamento final na avaliação.', img:'img/p3.jpg', tag:'Cabelo' },
+    { id:'unha', name:'Manicure completa', cat:'unhas', price:55, desc:'Cutilagem + esmaltação. Cores da casa.', img:'img/p4.jpg', tag:'Unhas' },
+    { id:'spa', name:'Spa das mãos', cat:'unhas', price:85, desc:'Esfoliação + máscara + esmalte.', img:'img/p5.jpg', tag:'Unhas' },
+    { id:'pele', name:'Limpeza de pele', cat:'estetica', price:140, desc:'Higienização + extração leve + máscara.', img:'img/p6.jpg', tag:'Estética' },
+    { id:'hero', name:'Dia de salão', cat:'cabelo', price:220, desc:'Corte + escova + hidratação. Pacote demo.', img:'img/hero.jpg', tag:'Combo' }
   ];
-
-  var SECTIONS = ["Todos"].concat(
-    PRODUCTS.map(function (p) { return p.section; }).filter(function (s, i, a) {
-      return a.indexOf(s) === i;
-    })
-  );
-
-  var state = { section: "Todos", q: "" };
-
-  function brl(n) {
-    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  }
-
-  function waLink(text) {
-    return WA_BASE + "?text=" + encodeURIComponent(text);
-  }
-
-  function gradient(colors) {
-    var c0 = colors[0] || "#ccc";
-    var c1 = colors[1] || c0;
-    return "linear-gradient(145deg, " + c0 + " 0%, " + c1 + " 100%)";
-  }
-
-  function productMessage(p) {
-    return (
-      "Oi, " + SHOP_NAME + "! Vim pelo catálogo *Loja no Bolso* e quero: " +
-      p.name +
-      " (" +
-      brl(p.price) +
-      "). Pode confirmar?"
-    );
-  }
-
-  function generalMessage() {
-    return "Oi, " + SHOP_NAME + "! Vi o cardápio digital e quero fazer um pedido / agendar banho.";
-  }
-
-  function matches(p) {
-    if (state.section !== "Todos" && p.section !== state.section) return false;
-    if (!state.q) return true;
-    var hay = (p.name + " " + p.section + " " + p.desc).toLowerCase();
-    return hay.indexOf(state.q) !== -1;
-  }
-
-  function renderFilters() {
-    var el = document.getElementById("filters");
-    el.innerHTML = "";
-    SECTIONS.forEach(function (sec) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "chip";
-      b.textContent = sec;
-      b.setAttribute("aria-pressed", sec === state.section ? "true" : "false");
-      b.addEventListener("click", function () {
-        state.section = sec;
-        renderFilters();
-        renderGrid();
-      });
-      el.appendChild(b);
+  var CATS = ['todas', 'cabelo', 'unhas', 'estetica'];
+  var LABELS = {'todas': 'Todos', 'cabelo': 'Cabelo', 'unhas': 'Unhas', 'estetica': 'Estética'};
+  var state = { cat: CATS[0], q: "" };
+  var els = {
+    chips: document.getElementById("chips"),
+    grid: document.getElementById("grid"),
+    empty: document.getElementById("empty"),
+    count: document.getElementById("count"),
+    q: document.getElementById("q"),
+    searchBar: document.getElementById("searchBar"),
+    btnSearch: document.getElementById("btnSearch"),
+    sheet: document.getElementById("sheet"),
+    sheetImg: document.getElementById("sheetImg"),
+    sheetCat: document.getElementById("sheetCat"),
+    sheetTitle: document.getElementById("sheetTitle"),
+    sheetPrice: document.getElementById("sheetPrice"),
+    sheetDesc: document.getElementById("sheetDesc"),
+    sheetWa: document.getElementById("sheetWa"),
+    waDock: document.getElementById("waDock"),
+    waHero: document.getElementById("waHero")
+  };
+  function money(n){ return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function wa(t){ return BASE + encodeURIComponent(t); }
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return PRODUCTS.filter(function(p){
+      if(state.cat !== CATS[0] && p.cat !== state.cat) return false;
+      if(!q) return true;
+      return (p.name+" "+p.desc+" "+p.tag).toLowerCase().indexOf(q)!==-1;
     });
   }
-
-  function renderGrid() {
-    var grid = document.getElementById("grid");
-    var empty = document.getElementById("empty");
-    var title = document.getElementById("section-title");
-    var list = PRODUCTS.filter(matches);
-
-    title.textContent = state.section === "Todos" ? "Serviços" : state.section;
-
-    grid.innerHTML = "";
-    empty.hidden = list.length > 0;
-
-    list.forEach(function (p) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "card";
-      btn.setAttribute("aria-label", p.name + ", " + brl(p.price));
-
-      var art = document.createElement("div");
-      art.className = "card-art";
-      art.style.background = gradient(p.colors);
-      var badge = document.createElement("span");
-      badge.textContent = brl(p.price);
-      art.appendChild(badge);
-
-      var body = document.createElement("div");
-      body.className = "card-body";
-      var sec = document.createElement("p");
-      sec.className = "sec";
-      sec.textContent = p.section;
-      var h = document.createElement("h3");
-      h.textContent = p.name;
-      var price = document.createElement("p");
-      price.className = "price";
-      price.textContent = brl(p.price);
-      body.appendChild(sec);
-      body.appendChild(h);
-      body.appendChild(price);
-
-      btn.appendChild(art);
-      btn.appendChild(body);
-      btn.addEventListener("click", function () {
-        openItem(p);
-      });
-      grid.appendChild(btn);
+  function renderChips(){
+    els.chips.innerHTML="";
+    CATS.forEach(function(c){
+      var b=document.createElement("button"); b.type="button";
+      b.className="chip"+(state.cat===c?" is-on":"");
+      b.textContent=LABELS[c]||c;
+      b.onclick=function(){ state.cat=c; renderChips(); renderGrid(); };
+      els.chips.appendChild(b);
     });
   }
-
-  function openItem(p) {
-    var dlg = document.getElementById("dlg-item");
-    document.getElementById("dlg-title").textContent = p.name;
-    document.getElementById("dlg-price").textContent = brl(p.price);
-    document.getElementById("dlg-desc").textContent = p.desc;
-    document.getElementById("dlg-swatch").style.background = gradient(p.colors);
-    var a = document.getElementById("dlg-wa");
-    a.href = waLink(productMessage(p));
-    if (typeof dlg.showModal === "function") dlg.showModal();
-    else dlg.setAttribute("open", "");
-  }
-
-  function bindWaGeneral() {
-    var href = waLink(generalMessage());
-    var g = document.getElementById("btn-whatsapp-geral");
-    var d = document.getElementById("btn-whatsapp-dock");
-    g.href = href;
-    d.href = href;
-    g.target = "_blank";
-    d.target = "_blank";
-    g.rel = "noopener";
-    d.rel = "noopener";
-  }
-
-  function bindInfo() {
-    var btn = document.getElementById("btn-info");
-    var dlg = document.getElementById("dlg-info");
-    btn.addEventListener("click", function () {
-      if (typeof dlg.showModal === "function") dlg.showModal();
-      else dlg.setAttribute("open", "");
+  function renderGrid(){
+    var list=filtered(); els.grid.innerHTML="";
+    els.count.textContent=list.length+(list.length===1?" item":" itens");
+    els.empty.hidden=list.length>0;
+    list.forEach(function(p){
+      var btn=document.createElement("button"); btn.type="button"; btn.className="card";
+      btn.innerHTML='<div class="card-photo"><img src="'+p.img+'" alt="" loading="lazy" width="600" height="800"/></div><p class="card-name">'+p.name+'</p><p class="card-price">'+money(p.price)+'</p>';
+      btn.onclick=function(){ openSheet(p); };
+      els.grid.appendChild(btn);
     });
   }
-
-  function bindSearch() {
-    var input = document.getElementById("q");
-    var t = null;
-    input.addEventListener("input", function () {
-      var v = input.value.trim().toLowerCase();
-      window.clearTimeout(t);
-      t = window.setTimeout(function () {
-        state.q = v;
-        renderGrid();
-      }, 120);
-    });
+  function openSheet(p){
+    els.sheetImg.src=p.img; els.sheetImg.alt=p.name;
+    els.sheetCat.textContent=p.tag+" · "+(LABELS[p.cat]||p.cat);
+    els.sheetTitle.textContent=p.name; els.sheetPrice.textContent=money(p.price);
+    els.sheetDesc.textContent=p.desc;
+    els.sheetWa.href=wa("Oi! Vi o catálogo da "+SHOP+" e quero: "+p.name+" ("+money(p.price)+"). Ainda tem?");
+    els.sheet.hidden=false; document.body.style.overflow="hidden";
   }
-
-  bindWaGeneral();
-  bindInfo();
-  bindSearch();
-  renderFilters();
-  renderGrid();
+  function closeSheet(){ els.sheet.hidden=true; document.body.style.overflow=""; }
+  els.btnSearch.onclick=function(){
+    var open=els.searchBar.hidden; els.searchBar.hidden=!open;
+    els.btnSearch.setAttribute("aria-expanded", open?"true":"false");
+    if(open) els.q.focus();
+  };
+  els.q.oninput=function(){ state.q=els.q.value||""; renderGrid(); };
+  document.onclick=function(e){ if(e.target.closest("[data-close]")) closeSheet(); };
+  document.onkeydown=function(e){ if(e.key==="Escape") closeSheet(); };
+  var greet=wa("Oi! Vi o catálogo da "+SHOP+" e queria tirar uma dúvida.");
+  els.waDock.href=greet; els.waHero.href=greet;
+  renderChips(); renderGrid();
 })();

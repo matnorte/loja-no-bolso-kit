@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1410" />
+  <title>Diário de campo — Loja no Bolso</title>
+  <style>
+    :root {
+      --bg: #f4efe8; --card: #fffdf9; --ink: #1a1410; --soft: #5c534c;
+      --line: #e4d9cc; --a: #9a3412; --ok: #0f766e; --chip: #fff7ed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(900px 420px at 0% -10%, #fed7aa 0%, transparent 55%), var(--bg);
+      color: var(--ink); line-height: 1.35; padding: 14px 12px 48px;
+    }
+    .wrap { max-width: 480px; margin: 0 auto; }
+    h1 { font-size: 1.2rem; margin: 0 0 4px; }
+    .sub { color: var(--soft); font-size: .88rem; margin: 0 0 14px; }
+    label { display: block; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--soft); margin: 10px 0 4px; }
+    input, select, textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px;
+      font: inherit; background: var(--card); color: var(--ink);
+    }
+    textarea { min-height: 64px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    button, .btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .primary { background: var(--a); color: #fff7ed; flex: 1; }
+    .ghost { background: var(--card); border: 1px solid var(--line) !important; color: var(--ink); }
+    .ok { background: var(--ok); color: #ecfdf5; }
+    .list { margin-top: 18px; display: grid; gap: 8px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px;
+    }
+    .card h3 { margin: 0 0 4px; font-size: 1rem; }
+    .meta { font-size: .82rem; color: var(--soft); }
+    .pill {
+      display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+      background: var(--chip); border: 1px solid #fdba74; color: var(--a); margin-right: 4px;
+    }
+    .pill.g { background: #ecfdf5; border-color: #99f6e4; color: var(--ok); }
+    .empty { color: var(--soft); font-size: .9rem; }
+    .stats { font-size: .85rem; color: var(--soft); margin: 8px 0 0; }
+    a.back { color: var(--a); font-size: .9rem; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="./kit-campo.html">← kit campo</a>
+    <h1>Diário de campo</h1>
+    <p class="sub">Anota visita no celular · fica neste aparelho · exporta CSV pro pipeline</p>
+
+    <form id="f" autocomplete="on">
+      <label for="loja">Loja</label>
+      <input id="loja" name="loja" required placeholder="Ex.: Ótica Brilhante" list="alvos" />
+      <datalist id="alvos">
+        <option value="André Martins"></option>
+        <option value="Ótica Brilhante"></option>
+        <option value="SBX Magazine"></option>
+        <option value="Bagágio"></option>
+        <option value="Perfumaria Irene"></option>
+        <option value="Faxinas Pet"></option>
+        <option value="Campo Fértil"></option>
+        <option value="Loja do Jacaré"></option>
+        <option value="Pimenta Amarela"></option>
+        <option value="Maria Torta Café"></option>
+        <option value="O Cafezinho"></option>
+      </datalist>
+
+      <div class="row">
+        <div>
+          <label for="nicho">Nicho</label>
+          <select id="nicho">
+            <option>salão</option>
+            <option>ótica</option>
+            <option>moda</option>
+            <option>pet</option>
+            <option>food</option>
+            <option>eletrônicos</option>
+            <option>outro</option>
+          </select>
+        </div>
+        <div>
+          <label for="interesse">Interesse 0–5</label>
+          <select id="interesse">
+            <option>0</option><option>1</option><option>2</option>
+            <option selected>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="demo">Demo vista</label>
+          <select id="demo">
+            <option selected>NARA</option>
+            <option>nenhuma</option>
+            <option>só pitch oral</option>
+          </select>
+        </div>
+        <div>
+          <label for="plano">Plano falado</label>
+          <select id="plano">
+            <option value="">—</option>
+            <option>Essencial 597</option>
+            <option>Catálogo 1197</option>
+            <option>App 2497</option>
+            <option>só QR / depois</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="wa">WhatsApp (só dígitos)</label>
+      <input id="wa" inputmode="tel" placeholder="5521999999999" />
+
+      <label for="objecao">Objeção</label>
+      <input id="objecao" placeholder="já tenho IG · caro · dono ausente…" />
+
+      <label for="next">Próximo passo</label>
+      <input id="next" placeholder="voltar sex 16h · mandar preview · PIX" />
+
+      <label for="notas">Notas</label>
+      <textarea id="notas" placeholder="dono presente? horário? o que rolou"></textarea>
+
+      <div class="btns">
+        <button type="submit" class="primary">Salvar visita</button>
+        <button type="button" class="ghost" id="btn-export">Export CSV</button>
+        <button type="button" class="ghost" id="btn-clear">Limpar tudo</button>
+      </div>
+    </form>
+
+    <p class="stats" id="stats"></p>
+    <div class="list" id="list"></div>
+  </div>
+
+  <script>
+  (function () {
+    var KEY = "lnb_diario_campo_v1";
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]"); }
+      catch (e) { return []; }
+    }
+    function save(rows) {
+      localStorage.setItem(KEY, JSON.stringify(rows));
+      render();
+    }
+    function brlInterest(n) {
+      n = +n;
+      if (n >= 4) return "quente";
+      if (n >= 3) return "morno";
+      return "frio";
+    }
+    function render() {
+      var rows = load().slice().reverse();
+      var el = document.getElementById("list");
+      var st = document.getElementById("stats");
+      var quente = load().filter(function (r) { return +r.interesse >= 3; }).length;
+      st.textContent = load().length + " visita(s) neste aparelho · " + quente + " com interesse ≥3 (contam pro gate)";
+      if (!rows.length) {
+        el.innerHTML = "<p class='empty'>Nenhuma visita ainda. Primeira porta já conta.</p>";
+        return;
+      }
+      el.innerHTML = rows.map(function (r, idx) {
+        var realIdx = load().length - 1 - idx;
+        return (
+          "<article class='card' data-i='" + realIdx + "'>" +
+          "<h3>" + escapeHtml(r.loja) + "</h3>" +
+          "<div><span class='pill'>" + escapeHtml(r.nicho) + "</span>" +
+          "<span class='pill " + ( +r.interesse >= 3 ? "g" : "" ) + "'>interesse " + r.interesse + " · " + brlInterest(r.interesse) + "</span>" +
+          (r.plano ? "<span class='pill'>" + escapeHtml(r.plano) + "</span>" : "") +
+          "</div>" +
+          "<p class='meta'>" + escapeHtml(r.data) + " · demo " + escapeHtml(r.demo) +
+          (r.wa ? " · WA " + escapeHtml(r.wa) : "") + "</p>" +
+          (r.objecao ? "<p class='meta'>Obj: " + escapeHtml(r.objecao) + "</p>" : "") +
+          (r.next ? "<p class='meta'>Next: " + escapeHtml(r.next) + "</p>" : "") +
+          (r.notas ? "<p class='meta'>" + escapeHtml(r.notas) + "</p>" : "") +
+          "<div class='btns'><button type='button' class='ghost btn-del' data-i='" + realIdx + "'>apagar</button></div>" +
+          "</article>"
+        );
+      }).join("");
+      el.querySelectorAll(".btn-del").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var rows = load();
+          rows.splice(+b.getAttribute("data-i"), 1);
+          save(rows);
+        });
+      });
+    }
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function csvEscape(s) {
+      s = String(s == null ? "" : s);
+      if (/[",\n]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+      return s;
+    }
+    document.getElementById("f").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var rows = load();
+      rows.push({
+        data: new Date().toISOString().slice(0, 16).replace("T", " "),
+        loja: document.getElementById("loja").value.trim(),
+        nicho: document.getElementById("nicho").value,
+        interesse: document.getElementById("interesse").value,
+        demo: document.getElementById("demo").value,
+        plano: document.getElementById("plano").value,
+        wa: document.getElementById("wa").value.replace(/\D/g, ""),
+        objecao: document.getElementById("objecao").value.trim(),
+        next: document.getElementById("next").value.trim(),
+        notas: document.getElementById("notas").value.trim()
+      });
+      save(rows);
+      document.getElementById("f").reset();
+      document.getElementById("interesse").value = "3";
+      window.scrollTo({ top: document.getElementById("list").offsetTop - 20, behavior: "smooth" });
+    });
+    document.getElementById("btn-export").addEventListener("click", function () {
+      var rows = load();
+      var header = "data,loja,nicho,interesse,demo,plano,whatsapp,objecao,next_step,notas,estagio";
+      var lines = rows.map(function (r) {
+        return [
+          r.data, r.loja, r.nicho, r.interesse, r.demo, r.plano, r.wa,
+          r.objecao, r.next, r.notas, +r.interesse >= 3 ? "interesse" : "visitado"
+        ].map(csvEscape).join(",");
+      });
+      var blob = new Blob([[header].concat(lines).join("\n")], { type: "text/csv;charset=utf-8" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "diario-campo-loja-no-bolso.csv";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    document.getElementById("btn-clear").addEventListener("click", function () {
+      if (confirm("Apagar todas as visitas salvas neste celular?")) save([]);
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>

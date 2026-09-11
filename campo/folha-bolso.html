@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Folha de bolso — Loja no Bolso</title>
+  <style>
+    :root { --ink:#1a1410; --soft:#5c534c; --line:#e7ddd2; --bg:#f6f1ea; --card:#fffdf9; --a:#9a3412; --ok:#0f766e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.35; padding:12px; }
+    .sheet { max-width:440px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 14px 20px; }
+    h1 { font-size:1.15rem; margin:0 0 4px; }
+    .sub { color:var(--soft); font-size:.85rem; margin:0 0 12px; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .pill { flex:1; min-width:110px; border:1px solid var(--line); border-radius:12px; padding:10px; background:#fff; }
+    .pill b { display:block; font-size:1.05rem; color:var(--a); }
+    .pill span { font-size:.75rem; color:var(--soft); }
+    .box { border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin:10px 0; background:#fff; }
+    .box h2 { font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--soft); margin:0 0 6px; }
+    .pix { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:1.05rem; font-weight:700; color:var(--ok); word-break:break-all; }
+    ol, ul { margin:0; padding-left:1.15rem; }
+    li { margin:4px 0; font-size:.92rem; }
+    .script { font-size:.92rem; background:#fff7ed; border:1px dashed #fdba74; border-radius:12px; padding:10px 12px; }
+    .meta { font-size:.78rem; color:var(--soft); margin-top:12px; }
+    a { color:var(--a); }
+    @media print { body { background:#fff; padding:0; } .sheet { border:none; box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <h1>Loja no Bolso · folha de bolso</h1>
+    <p class="sub">Teresópolis · visita presencial · não ler em voz alta</p>
+
+    <div class="row">
+      <div class="pill"><b>R$ 597</b><span>Essencial · 1 pág + WA + QR · ≤8 itens</span></div>
+      <div class="pill"><b>R$ 1.197</b><span>Catálogo · seções · ≤40 · busca</span></div>
+      <div class="pill"><b>R$ 2.497</b><span>App/PWA leve · pedido WA</span></div>
+    </div>
+
+    <div class="box">
+      <h2>PIX na hora</h2>
+      <div class="pix">196.555.367-26</div>
+      <p style="margin:6px 0 0;font-size:.85rem;color:var(--soft)">WA comercial: +55 21 99454-2037</p>
+    </div>
+
+    <div class="box script">
+      <strong>60s:</strong> “Montei no celular o que a loja de vocês pode ter online: cliente abre o catálogo, escolhe e já cai no WhatsApp de vocês. QR na vitrine. Em poucos dias no ar. Posso te mostrar em 20 segundos?”
+    </div>
+
+    <div class="box">
+      <h2>Demo (única)</h2>
+      <ul>
+        <li><b>Sempre</b> → <a href="https://matnorte.github.io/loja-no-bolso-kit/">NARA Pages</a></li>
+        <li>Offline → <code>sites/best-loja/</code></li>
+        <li>Pitch muda por nicho; tela = modelo catálogo+WA</li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:.85rem"><a href="./kit-campo.html">Hub kit</a> · <a href="./diario-campo.html">Diário</a> · <a href="https://matnorte.github.io/loja-no-bolso-kit/">NARA 4G</a></p>
+    </div>
+
+    <div class="box">
+      <h2>Rota 3h Centro (priorizar)</h2>
+      <ol>
+        <li>Praça Baltazar — NARA já aberta no 4G</li>
+        <li>André Martins (salão) — frase serviços</li>
+        <li>Bagágio (moda) — NARA nativo</li>
+        <li>Ótica Brilhante · Francisco Sá 222</li>
+        <li>SBX · Lúcio Meira 350 (se tempo)</li>
+        <li>Food 15:30+ · Maria Torta / Cafezinho</li>
+        <li>Pet se sobrar energia</li>
+        <li>Anotar CSV + 1 follow-up draft (envio só c/ ok)</li>
+      </ol>
+    </div>
+
+    <div class="box">
+      <h2>Na loja (checklist mental)</h2>
+      <ul>
+        <li>15s + demo (home → item → WA)</li>
+        <li>1 dor: “como mandam preço hoje?”</li>
+        <li>Um preço âncora (não os 3 de uma vez)</li>
+        <li>CTA: 3 fotos rascunho <i>ou</i> Essencial + PIX</li>
+        <li>WA se interesse ≥3/5 · sair &lt;4 min se frio</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>Anotar (lojas.csv)</h2>
+      <p style="margin:0;font-size:.9rem">nome · rua · nicho · interesse 0–5 · plano · WA · next + data · objeção</p>
+    </div>
+
+    <p class="meta">Alvos: <code>pipeline/teresopolis-alvos-centro-v1.md</code> · Preços print: <code>pricing-card.html</code> · Gate 23/09: 1 pago ou 5 interesses.</p>
+  </div>
+</body>
+</html>

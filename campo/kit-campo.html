@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1410" />
+  <title>Kit campo — Loja no Bolso</title>
+  <style>
+    :root {
+      --bg: #f4efe8;
+      --card: #fffdf9;
+      --ink: #1a1410;
+      --soft: #5c534c;
+      --line: #e4d9cc;
+      --a: #9a3412;
+      --ok: #0f766e;
+      --chip: #fff7ed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 420px at 0% -10%, #fed7aa 0%, transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.35;
+      padding: 14px 12px 40px;
+    }
+    .wrap { max-width: 480px; margin: 0 auto; }
+    h1 { font-size: 1.25rem; margin: 0 0 4px; }
+    .sub { color: var(--soft); font-size: .88rem; margin: 0 0 14px; }
+    .grid { display: grid; gap: 10px; }
+    a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 1px 0 rgba(26,20,16,.04);
+    }
+    a.card:active { transform: scale(.99); }
+    .kicker {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--soft);
+      margin: 0 0 4px;
+    }
+    .title { font-size: 1.05rem; font-weight: 700; margin: 0 0 4px; }
+    .hint { margin: 0; font-size: .86rem; color: var(--soft); }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .pill {
+      font-size: .75rem;
+      background: var(--chip);
+      border: 1px solid #fdba74;
+      color: var(--a);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-weight: 600;
+    }
+    .pill.ok { background: #ecfdf5; border-color: #99f6e4; color: var(--ok); }
+    .box {
+      margin-top: 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+    .box h2 {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--soft);
+      margin: 0 0 8px;
+    }
+    .pix {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ok);
+      word-break: break-all;
+    }
+    ol { margin: 0; padding-left: 1.15rem; }
+    li { margin: 5px 0; font-size: .92rem; }
+    .meta { margin-top: 14px; font-size: .78rem; color: var(--soft); }
+    code { font-size: .85em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Kit campo · Loja no Bolso</h1>
+    <p class="sub">Teresópolis · 1 hub no celular · 4G · favoritar esta URL no celular</p>
+
+    <div class="grid">
+      <a class="card" href="https://matnorte.github.io/loja-no-bolso-kit/">
+        <p class="kicker">Demo · 4G · flagship</p>
+        <p class="title">NARA (Pages)</p>
+        <p class="hint">Única demo pública · foto-first · catálogo + WA</p>
+        <div class="row"><span class="pill ok">abrir antes da porta</span><span class="pill">Craft 11/09</span></div>
+      </a>
+
+      <a class="card" href="../">
+        <p class="kicker">Demo · mesma origem</p>
+        <p class="title">NARA (raiz Pages)</p>
+        <p class="hint">Mesmo site · atalho se o 1º card falhar</p>
+        <div class="row"><span class="pill">raiz</span></div>
+      </a>
+
+      <a class="card" href="./folha-bolso.html">
+        <p class="kicker">Script + preços</p>
+        <p class="title">Folha de bolso</p>
+        <p class="hint">60s · checklist · rota 3h · PIX</p>
+      </a>
+
+      <a class="card" href="./pricing-card.html">
+        <p class="kicker">Fechar na loja</p>
+        <p class="title">Pricing card</p>
+        <p class="hint">597 · 1.197 · 2.497</p>
+      </a>
+
+      <a class="card" href="./objecoes-campo.html">
+        <p class="kicker">Objeções</p>
+        <p class="title">Respostas de 10s</p>
+        <p class="hint">“já tenho IG” · “tá caro” · “depois”</p>
+      </a>
+
+      <a class="card" href="./diario-campo.html">
+        <p class="kicker">Pós-porta</p>
+        <p class="title">Diário de campo</p>
+        <p class="hint">Interesse 0–5 · export CSV · gate 23/09</p>
+      </a>
+
+      <a class="card" href="./vitrine-qr.html">
+        <p class="kicker">Tangível</p>
+        <p class="title">Pack QR vitrine A6</p>
+        <p class="hint">Imprimir · isca no fechamento · +R$147</p>
+      </a>
+
+      <a class="card" href="./rota-campo.html">
+        <p class="kicker">Caminhada</p>
+        <p class="title">Rota geo · ordem A (10)</p>
+        <p class="hint">Loop 10 + Maps · Brilhante/SBX</p>
+      </a>
+    </div>
+
+    <div class="box">
+      <h2>PIX · WA</h2>
+      <div class="pix">196.555.367-26</div>
+      <p style="margin:6px 0 0;font-size:.88rem;color:var(--soft)">WA comercial +55 21 99454-2037 · anotar em <code>pipeline/lojas.csv</code> ou no diário</p>
+    </div>
+
+    <div class="box">
+      <h2>Online (sem cabo)</h2>
+      <p style="margin:0;font-size:.92rem">Flagship 4G: <code id="pages-url">https://matnorte.github.io/loja-no-bolso-kit/</code></p>
+      <p style="margin:6px 0 0;font-size:.85rem;color:var(--soft)">1 demo NARA (Craft) · demos verticais antigas removidas · PIX/WA neste hub · favoritar /campo/</p>
+    </div>
+
+    <div class="box">
+      <h2>Roteiros</h2>
+      <p style="margin:0;font-size:.92rem"><strong>HOJE sex 11:</strong> <code>pipeline/campo-hoje-11-set.md</code></p>
+      <p style="margin:6px 0 0;font-size:.92rem"><strong>1ª tarde:</strong> <code>pipeline/tarde-centro-01.md</code></p>
+      <p style="margin:6px 0 0;font-size:.92rem"><strong>Rota B / chuva:</strong> <code>pipeline/tarde-rota-b.md</code> (Maranatha)</p>
+      <p style="margin:6px 0 0;font-size:.92rem"><strong>60s:</strong> <code>offers/loja-no-bolso/SAI-AGORA.md</code></p>
+    </div>
+
+    <div class="box">
+      <h2>Antes de sair</h2>
+      <ol>
+        <li>Favoritar <strong>Pages NARA</strong> no Chrome do celular (1 URL).</li>
+        <li>Testar: home → peça → sheet → WA (número fictício ok).</li>
+        <li>Pitch por nicho muda a <em>frase</em>; a tela é sempre NARA como modelo.</li>
+        <li>Diário / CSV · gate 23/09.</li>
+      </ol>
+    </div>
+
+    <p class="meta">Atlas · kit campo 4G 2026-09-11 15:30 UTC · /campo/ · 1 demo NARA · envio a lojas só com ok do Mateus</p>
+  </div>
+</body>
+</html>

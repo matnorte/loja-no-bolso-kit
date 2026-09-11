@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pack vitrine QR — Loja no Bolso</title>
+  <style>
+    :root {
+      --ink: #1a1410; --soft: #5c534c; --line: #e4d9cc; --a: #9a3412; --bg: #f4efe8; --card: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg); color: var(--ink); padding: 16px; line-height: 1.35;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.25rem; margin: 0 0 6px; }
+    .sub { color: var(--soft); margin: 0 0 16px; font-size: .92rem; }
+    label { display: block; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--soft); margin: 10px 0 4px; }
+    input, select {
+      width: 100%; max-width: 420px; padding: 10px 12px; border: 1px solid var(--line);
+      border-radius: 12px; font: inherit; background: #fff;
+    }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+    button {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 14px;
+      font: inherit; font-weight: 700; cursor: pointer; background: var(--a); color: #fff7ed;
+    }
+    button.ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+    .sheet {
+      width: 105mm; min-height: 148mm; /* A6 */
+      margin: 0 auto 18px; background: var(--card); border: 1px solid var(--line);
+      border-radius: 8px; padding: 10mm 9mm; text-align: center;
+      box-shadow: 0 8px 24px rgba(26,20,16,.06);
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    }
+    .sheet .brand {
+      font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--soft);
+    }
+    .sheet h2 { margin: 6px 0 4px; font-size: 1.35rem; }
+    .sheet .tag { color: var(--soft); font-size: .9rem; margin: 0 0 10px; }
+    .qr-wrap {
+      width: 48mm; height: 48mm; border: 2px solid var(--ink); border-radius: 8px;
+      display: grid; place-items: center; background: #fff; padding: 4px;
+    }
+    .qr-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .cta {
+      margin-top: 12px; font-weight: 800; font-size: 1.05rem;
+    }
+    .wa { margin: 6px 0 0; font-size: .85rem; color: var(--soft); word-break: break-all; }
+    .price-note { font-size: .75rem; color: var(--soft); margin-top: 10px; }
+    .hint { font-size: .85rem; color: var(--soft); max-width: 420px; }
+    a { color: var(--a); }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .no-print { display: none !important; }
+      .sheet {
+        box-shadow: none; border: 1px dashed #999; border-radius: 0;
+        page-break-after: always; margin: 0; width: 105mm; min-height: 148mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="no-print">
+      <p><a href="./kit-campo.html">← kit campo</a></p>
+      <h1>Pack vitrine QR (A6)</h1>
+      <p class="sub">Isca grátis no fechamento Essencial · ou add-on <strong>R$ 147</strong>. Imprime 1–2 e cola na porta.</p>
+
+      <label for="nome">Nome da loja</label>
+      <input id="nome" value="Sua Loja Aqui" />
+
+      <label for="url">URL do catálogo (demo ou real)</label>
+      <input id="url" value="https://matnorte.github.io/loja-no-bolso-kit/" />
+
+      <label for="wa">WhatsApp (opcional, só dígitos)</label>
+      <input id="wa" placeholder="5521994542037" />
+
+      <label for="frase">Frase do cartaz</label>
+      <input id="frase" value="Aponte a câmera e peço no WhatsApp" />
+
+      <div class="btns">
+        <button type="button" id="btn-gen">Gerar cartaz</button>
+        <button type="button" class="ghost" id="btn-print">Imprimir / PDF</button>
+      </div>
+      <p class="hint">Offline: se a imagem do QR não carregar, abra com internet 1x ou use o link no balcão. Depois de vender, troque a URL pela do cliente.</p>
+    </div>
+
+    <section class="sheet" id="sheet" aria-label="Cartaz A6">
+      <div>
+        <p class="brand">Loja no Bolso · QR vitrine</p>
+        <h2 id="s-nome">Sua Loja Aqui</h2>
+        <p class="tag" id="s-frase">Aponte a câmera e peço no WhatsApp</p>
+      </div>
+      <div class="qr-wrap">
+        <img id="s-qr" alt="QR code do catálogo" width="180" height="180" />
+      </div>
+      <div>
+        <p class="cta">Cardápio / catálogo digital</p>
+        <p class="wa" id="s-wa"></p>
+        <p class="price-note">Entrega em 3–7 dias · Teresópolis</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (function () {
+    function qrUrl(data) {
+      return "https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=" + encodeURIComponent(data);
+    }
+    function paint() {
+      var nome = document.getElementById("nome").value.trim() || "Sua Loja";
+      var url = document.getElementById("url").value.trim() || "https://example.com";
+      var wa = document.getElementById("wa").value.replace(/\D/g, "");
+      var frase = document.getElementById("frase").value.trim();
+      document.getElementById("s-nome").textContent = nome;
+      document.getElementById("s-frase").textContent = frase;
+      document.getElementById("s-qr").src = qrUrl(url);
+      document.getElementById("s-wa").textContent = wa ? ("WA " + wa) : "";
+    }
+    document.getElementById("btn-gen").addEventListener("click", paint);
+    document.getElementById("btn-print").addEventListener("click", function () {
+      paint();
+      setTimeout(function () { window.print(); }, 400);
+    });
+    ["nome", "url", "wa", "frase"].forEach(function (id) {
+      document.getElementById(id).addEventListener("change", paint);
+    });
+    paint();
+  })();
+  </script>
+</body>
+</html>
